@@ -77,21 +77,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Walk2Talk Global Healthcare Summit 2026 — Healthcare 2030" },
+      {
+        name: "description",
+        content:
+          "Virtual half-day summit on 27 August 2026 convening health system leaders, innovators, policymakers and clinicians to shape Healthcare 2030.",
+      },
+      { name: "author", content: "Walk2Talk Media" },
+      { property: "og:title", content: "Walk2Talk Global Healthcare Summit 2026" },
+      {
+        property: "og:description",
+        content:
+          "Healthcare 2030: Transforming Care Through Innovation, Technology & Leadership. Virtual, 27 August 2026 (IST).",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Walk2Talk Media" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
