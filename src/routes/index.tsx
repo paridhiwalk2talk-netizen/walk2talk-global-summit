@@ -829,7 +829,7 @@ function WhyAttend() {
   return (
     <section id="why" className="bg-paper py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <SectionHeading eyebrow="Why the summit matters" title="Why Attend" />
+        <SectionHeading title="Why Attend" />
         <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {WHY.map((w, i) => (
             <article
