@@ -763,7 +763,7 @@ function AgendaRow({ item, index }: { item: AgendaItem; index: number }) {
         }`}
       >
         <div className="grid flex-1 grid-cols-[110px_1fr] items-start gap-4 md:grid-cols-[180px_1fr] md:gap-8">
-          <span className="pt-1 font-display text-base font-semibold tabular-nums tracking-tight text-teal md:text-lg">{item.time}</span>
+          <span className="pt-1.5 font-sans text-sm font-medium tabular-nums tracking-tight text-teal md:text-[0.95rem]">{item.time}</span>
           <h3 className="font-display text-lg leading-snug text-navy md:text-[1.35rem]">
             {item.title}
           </h3>
