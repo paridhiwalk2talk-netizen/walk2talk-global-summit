@@ -748,9 +748,6 @@ function Speakers() {
             </article>
           ))}
         </div>
-        <p className="mt-10 text-center text-sm text-charcoal/60">
-          <span className="font-mono-data text-charcoal/45">Placeholder line-up</span> — speaker profiles will be updated as they are confirmed.
-        </p>
       </div>
     </section>
   );
