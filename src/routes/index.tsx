@@ -529,11 +529,8 @@ function Hero() {
       </div>
       <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 md:grid-cols-2 md:gap-8 md:px-8 md:pb-28 md:pt-8">
         <div>
-          <div className="animate-fade-up">
-            <Logo className="h-9 w-auto md:h-10" />
-          </div>
           <div
-            className="mt-8 inline-flex items-center gap-3 animate-fade-up"
+            className="inline-flex items-center gap-3 animate-fade-up"
             style={{ animationDelay: "0.1s" }}
           >
             <span className="h-px w-8 bg-gold" />
@@ -542,25 +539,18 @@ function Hero() {
             </p>
           </div>
           <h1
-            className="mt-5 font-display text-[2.35rem] font-semibold leading-[1.02] text-navy md:text-[3.6rem] lg:text-[4.1rem] animate-fade-up"
+            className="mt-6 font-display text-[2.5rem] font-semibold leading-[1.02] tracking-tight text-navy md:text-[4rem] lg:text-[4.6rem] animate-fade-up"
             style={{ animationDelay: "0.2s" }}
           >
-            Walk2Talk Global{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10 italic text-navy">Healthcare</span>
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-1 z-0 h-3 bg-gold/30 md:h-4"
-              />
-            </span>{" "}
-            Summit <span className="text-gold">2026</span>
+            Global Healthcare<br />Summit <span className="text-gold">2026</span>
           </h1>
           <p
-            className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal/80 md:text-xl animate-fade-up"
+            className="mt-8 max-w-xl font-display text-xl italic leading-snug text-charcoal/85 md:text-2xl animate-fade-up"
             style={{ animationDelay: "0.32s" }}
           >
             Healthcare 2030: Transforming Care Through Innovation, Technology &amp; Leadership.
           </p>
+
           <div
             className="mt-8 flex flex-wrap items-center gap-3 animate-fade-up"
             style={{ animationDelay: "0.45s" }}
