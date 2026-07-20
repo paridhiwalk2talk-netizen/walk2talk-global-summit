@@ -1128,7 +1128,6 @@ function SummitPage() {
       <Agenda />
       <WhyAttend />
       <WhoShouldAttend />
-      <Partners />
       <Faq />
       <RegisterCTA />
       <Footer />
