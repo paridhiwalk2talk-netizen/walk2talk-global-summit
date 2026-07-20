@@ -856,7 +856,7 @@ function WhoShouldAttend() {
   return (
     <section id="who" className="bg-mist py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading eyebrow="Audience" title="Who Should Attend" />
+        <SectionHeading title="Who Should Attend" />
         <div className="mt-16 grid gap-10 md:grid-cols-3 md:gap-14">
           {WHO.map((col, ci) => (
             <ul key={ci} className="reveal space-y-5" style={{ transitionDelay: `${ci * 80}ms` }}>
