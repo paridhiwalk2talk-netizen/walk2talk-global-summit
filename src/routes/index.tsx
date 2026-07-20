@@ -1036,12 +1036,6 @@ function RegisterCTA() {
             Register Now
             <ArrowRight className="h-4 w-4" />
           </a>
-          <a
-            href="mailto:partnerships@walk2talkmedia.com?subject=Walk2Talk%20Global%20Healthcare%20Summit%202026%20-%20Partnership"
-            className="inline-flex items-center gap-2 rounded-full border border-paper/40 px-8 py-4 text-sm font-semibold text-paper transition-colors hover:border-gold hover:text-gold"
-          >
-            Become a Partner
-          </a>
         </div>
         <p className="mt-8 font-mono-data text-paper/50">
           Virtual · 27 August 2026 · Indian Standard Time
