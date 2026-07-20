@@ -532,19 +532,28 @@ function Hero() {
           <div className="animate-fade-up">
             <Logo className="h-9 w-auto md:h-10" />
           </div>
-          <p
-            className="mt-8 font-mono-data text-teal animate-fade-up"
+          <div
+            className="mt-8 inline-flex items-center gap-3 animate-fade-up"
             style={{ animationDelay: "0.1s" }}
           >
-            Virtual Summit · 27 August 2026 · IST
-          </p>
+            <span className="h-px w-8 bg-gold" />
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-teal">
+              Virtual Summit · 27 August 2026 · IST
+            </p>
+          </div>
           <h1
-            className="mt-4 font-display text-[2.2rem] leading-[1.05] text-navy md:text-[3.4rem] lg:text-[3.9rem] animate-fade-up"
+            className="mt-5 font-display text-[2.35rem] font-semibold leading-[1.02] text-navy md:text-[3.6rem] lg:text-[4.1rem] animate-fade-up"
             style={{ animationDelay: "0.2s" }}
           >
             Walk2Talk Global{" "}
-            <span className="italic text-navy/90">Healthcare</span> Summit
-            <span className="text-gold"> 2026</span>
+            <span className="relative inline-block">
+              <span className="relative z-10 italic text-navy">Healthcare</span>
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-1 z-0 h-3 bg-gold/30 md:h-4"
+              />
+            </span>{" "}
+            Summit <span className="text-gold">2026</span>
           </h1>
           <p
             className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal/80 md:text-xl animate-fade-up"
