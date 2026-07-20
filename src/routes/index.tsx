@@ -27,7 +27,6 @@ const NAV_LINKS = [
   { href: "#agenda", label: "Agenda" },
   { href: "#why", label: "Why Attend" },
   { href: "#who", label: "Who Attends" },
-  { href: "#partners", label: "Partners" },
   { href: "#faq", label: "FAQ" },
 ];
 
