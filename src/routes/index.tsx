@@ -219,7 +219,7 @@ function SectionHeading({
   return (
     <div className={`reveal ${isCenter ? "text-center" : "text-left"}`}>
       {eyebrow && (
-        <p className={`font-mono-data text-teal ${isCenter ? "" : ""}`}>{eyebrow}</p>
+        <p className={`text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-teal ${isCenter ? "" : ""}`}>{eyebrow}</p>
       )}
       <h2
         className={`mt-4 font-display text-[2.15rem] leading-[1.1] text-navy md:text-5xl ${
