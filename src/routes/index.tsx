@@ -643,9 +643,6 @@ function Overview() {
             <h3 className="font-display text-3xl leading-[1.15] text-navy md:text-[2.6rem]">
               Healthcare Innovation for the Next Decade.
             </h3>
-            <p className="mt-6 text-base text-teal font-medium">
-              A deliberate 2030 horizon — close enough to act on, far enough to demand real strategic thinking.
-            </p>
           </div>
           <div className="reveal space-y-5 text-base leading-relaxed text-charcoal/80 md:text-[1.02rem]">
             <p>
