@@ -573,10 +573,10 @@ function Hero() {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
             <a
-              href="#partners"
+              href="#agenda"
               className="inline-flex items-center gap-2 rounded-full border border-navy px-7 py-3.5 text-sm font-semibold text-navy transition-colors hover:bg-mist"
             >
-              Become a Partner
+              View Agenda
             </a>
           </div>
           <ul
