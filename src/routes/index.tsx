@@ -27,7 +27,6 @@ const NAV_LINKS = [
   { href: "#agenda", label: "Agenda" },
   { href: "#why", label: "Why Attend" },
   { href: "#who", label: "Who Attends" },
-  { href: "#partners", label: "Partners" },
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -220,7 +219,7 @@ function SectionHeading({
   return (
     <div className={`reveal ${isCenter ? "text-center" : "text-left"}`}>
       {eyebrow && (
-        <p className={`font-mono-data text-teal ${isCenter ? "" : ""}`}>{eyebrow}</p>
+        <p className={`text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-teal ${isCenter ? "" : ""}`}>{eyebrow}</p>
       )}
       <h2
         className={`mt-4 font-display text-[2.15rem] leading-[1.1] text-navy md:text-5xl ${
@@ -533,19 +532,28 @@ function Hero() {
           <div className="animate-fade-up">
             <Logo className="h-9 w-auto md:h-10" />
           </div>
-          <p
-            className="mt-8 font-mono-data text-teal animate-fade-up"
+          <div
+            className="mt-8 inline-flex items-center gap-3 animate-fade-up"
             style={{ animationDelay: "0.1s" }}
           >
-            Virtual Summit · 27 August 2026 · IST
-          </p>
+            <span className="h-px w-8 bg-gold" />
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-teal">
+              Virtual Summit · 27 August 2026 · IST
+            </p>
+          </div>
           <h1
-            className="mt-4 font-display text-[2.2rem] leading-[1.05] text-navy md:text-[3.4rem] lg:text-[3.9rem] animate-fade-up"
+            className="mt-5 font-display text-[2.35rem] font-semibold leading-[1.02] text-navy md:text-[3.6rem] lg:text-[4.1rem] animate-fade-up"
             style={{ animationDelay: "0.2s" }}
           >
             Walk2Talk Global{" "}
-            <span className="italic text-navy/90">Healthcare</span> Summit
-            <span className="text-gold"> 2026</span>
+            <span className="relative inline-block">
+              <span className="relative z-10 italic text-navy">Healthcare</span>
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-1 z-0 h-3 bg-gold/30 md:h-4"
+              />
+            </span>{" "}
+            Summit <span className="text-gold">2026</span>
           </h1>
           <p
             className="mt-6 max-w-xl text-lg leading-relaxed text-charcoal/80 md:text-xl animate-fade-up"
@@ -565,10 +573,10 @@ function Hero() {
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
             <a
-              href="#partners"
+              href="#agenda"
               className="inline-flex items-center gap-2 rounded-full border border-navy px-7 py-3.5 text-sm font-semibold text-navy transition-colors hover:bg-mist"
             >
-              Become a Partner
+              View Agenda
             </a>
           </div>
           <ul
@@ -635,9 +643,6 @@ function Overview() {
             <h3 className="font-display text-3xl leading-[1.15] text-navy md:text-[2.6rem]">
               Healthcare Innovation for the Next Decade.
             </h3>
-            <p className="mt-6 text-base text-teal font-medium">
-              A deliberate 2030 horizon — close enough to act on, far enough to demand real strategic thinking.
-            </p>
           </div>
           <div className="reveal space-y-5 text-base leading-relaxed text-charcoal/80 md:text-[1.02rem]">
             <p>
@@ -743,9 +748,6 @@ function Speakers() {
             </article>
           ))}
         </div>
-        <p className="mt-10 text-center text-sm text-charcoal/60">
-          <span className="font-mono-data text-charcoal/45">Placeholder line-up</span> — speaker profiles will be updated as they are confirmed.
-        </p>
       </div>
     </section>
   );
@@ -771,7 +773,7 @@ function AgendaRow({ item, index }: { item: AgendaItem; index: number }) {
         }`}
       >
         <div className="grid flex-1 grid-cols-[110px_1fr] items-start gap-4 md:grid-cols-[180px_1fr] md:gap-8">
-          <span className="font-mono-data pt-1 text-teal">{item.time}</span>
+          <span className="pt-1 font-display text-base font-semibold tabular-nums tracking-tight text-teal md:text-lg">{item.time}</span>
           <h3 className="font-display text-lg leading-snug text-navy md:text-[1.35rem]">
             {item.title}
           </h3>
@@ -810,11 +812,7 @@ function Agenda() {
   return (
     <section id="agenda" className="bg-mist py-24 md:py-32">
       <div className="mx-auto max-w-5xl px-5 md:px-8">
-        <SectionHeading
-          eyebrow="27 August 2026 · Indian Standard Time"
-          title="Agenda"
-          intro="A tightly-curated half-day program of keynotes, panels and fireside conversations. Click any session for the brief."
-        />
+        <SectionHeading title="Agenda" />
         <div className="mt-16 space-y-4">
           {AGENDA.map((item, i) => (
             <AgendaRow key={i} item={item} index={i} />
@@ -831,7 +829,7 @@ function WhyAttend() {
   return (
     <section id="why" className="bg-paper py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <SectionHeading eyebrow="Why the summit matters" title="Why Attend" />
+        <SectionHeading title="Why Attend" />
         <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {WHY.map((w, i) => (
             <article
@@ -858,7 +856,7 @@ function WhoShouldAttend() {
   return (
     <section id="who" className="bg-mist py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading eyebrow="Audience" title="Who Should Attend" />
+        <SectionHeading title="Who Should Attend" />
         <div className="mt-16 grid gap-10 md:grid-cols-3 md:gap-14">
           {WHO.map((col, ci) => (
             <ul key={ci} className="reveal space-y-5" style={{ transitionDelay: `${ci * 80}ms` }}>
@@ -1038,12 +1036,6 @@ function RegisterCTA() {
             Register Now
             <ArrowRight className="h-4 w-4" />
           </a>
-          <a
-            href="mailto:partnerships@walk2talkmedia.com?subject=Walk2Talk%20Global%20Healthcare%20Summit%202026%20-%20Partnership"
-            className="inline-flex items-center gap-2 rounded-full border border-paper/40 px-8 py-4 text-sm font-semibold text-paper transition-colors hover:border-gold hover:text-gold"
-          >
-            Become a Partner
-          </a>
         </div>
         <p className="mt-8 font-mono-data text-paper/50">
           Virtual · 27 August 2026 · Indian Standard Time
@@ -1130,7 +1122,6 @@ function SummitPage() {
       <Agenda />
       <WhyAttend />
       <WhoShouldAttend />
-      <Partners />
       <Faq />
       <RegisterCTA />
       <Footer />
