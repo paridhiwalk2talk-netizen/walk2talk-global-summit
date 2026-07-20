@@ -812,11 +812,7 @@ function Agenda() {
   return (
     <section id="agenda" className="bg-mist py-24 md:py-32">
       <div className="mx-auto max-w-5xl px-5 md:px-8">
-        <SectionHeading
-          eyebrow="27 August 2026 · Indian Standard Time"
-          title="Agenda"
-          intro="A tightly-curated half-day program of keynotes, panels and fireside conversations. Click any session for the brief."
-        />
+        <SectionHeading title="Agenda" />
         <div className="mt-16 space-y-4">
           {AGENDA.map((item, i) => (
             <AgendaRow key={i} item={item} index={i} />
