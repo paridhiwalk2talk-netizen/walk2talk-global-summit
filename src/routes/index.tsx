@@ -814,6 +814,11 @@ function AgendaRow({ item, index }: { item: AgendaItem; index: number }) {
               <p className="text-base leading-relaxed text-charcoal/80 md:text-[1.02rem]">
                 {item.brief}
               </p>
+              {item.speaker && (
+                <p className="mt-4 text-sm font-medium text-navy">
+                  Speaker: <span className="text-teal">{item.speaker}</span>
+                </p>
+              )}
             </div>
           </div>
         )}
