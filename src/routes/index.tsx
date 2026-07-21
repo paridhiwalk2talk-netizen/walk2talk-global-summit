@@ -15,6 +15,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import logoAsset from "@/assets/walk2talk-logo.png.asset.json";
+import walidAchiAsset from "@/assets/walid-achi.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: SummitPage,
@@ -48,14 +49,24 @@ const TOPICS = [
   "Building accessible, equitable and sustainable systems",
 ];
 
-const SPEAKERS = Array.from({ length: 8 }).map((_, i) => ({
-  name: `Speaker ${String.fromCharCode(65 + i)}${String.fromCharCode(66 + i)}${String.fromCharCode(67 + i)}`,
-  role: "Chief Executive Officer",
-  org: "Organization XYZ",
-  seed: i,
-}));
+const SPEAKERS = [
+  {
+    name: "Dr. Walid Achi",
+    role: "Chief Medical Officer",
+    org: "Emirates Hospitals Group",
+    photo: walidAchiAsset.url,
+    seed: 0,
+  },
+  ...Array.from({ length: 7 }).map((_, i) => ({
+    name: `Speaker ${String.fromCharCode(66 + i)}${String.fromCharCode(67 + i)}${String.fromCharCode(68 + i)}`,
+    role: "Chief Executive Officer",
+    org: "Organization XYZ",
+    photo: undefined as string | undefined,
+    seed: i + 1,
+  })),
+];
 
-type AgendaItem = { time: string; title: string; brief?: string };
+type AgendaItem = { time: string; title: string; brief?: string; speaker?: string };
 
 const AGENDA: AgendaItem[] = [
   { time: "5:00 – 5:10 PM", title: "Welcome Address by Walk2Talk Media" },
@@ -71,6 +82,7 @@ const AGENDA: AgendaItem[] = [
     title: "In Conversation — From Vision to Impact: Leading Change in Healthcare",
     brief:
       "How healthcare leaders are turning strategic vision into measurable impact through innovation, collaboration and patient-centered care.",
+    speaker: "Dr. Walid Achi, Chief Medical Officer, Emirates Hospitals Group",
   },
   {
     time: "5:45 – 6:20 PM",
@@ -693,7 +705,19 @@ function Topics() {
 
 /* ---------------- SPEAKERS ---------------- */
 
-function SpeakerAvatar({ seed }: { seed: number }) {
+function SpeakerAvatar({ seed, photo, name }: { seed: number; photo?: string; name?: string }) {
+  if (photo) {
+    return (
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-t-[18px] bg-mist">
+        <img
+          src={photo}
+          alt={name ? `${name} headshot` : "Speaker headshot"}
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+      </div>
+    );
+  }
+
   // Deterministic geometric avatar
   const bgs = ["#0B2545", "#00A6A6", "#C9A040", "#1F2937"];
   const bg = bgs[seed % bgs.length];
@@ -729,7 +753,7 @@ function Speakers() {
               className="reveal group overflow-hidden rounded-[20px] border border-hairline bg-paper shadow-[0_6px_24px_-18px_rgba(11,37,69,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-teal hover:shadow-[0_18px_40px_-18px_rgba(0,166,166,0.35)]"
               style={{ transitionDelay: `${(i % 4) * 60}ms` }}
             >
-              <SpeakerAvatar seed={s.seed} />
+              <SpeakerAvatar seed={s.seed} photo={s.photo} name={s.name} />
               <div className="p-5">
                 <h3 className="font-display text-lg text-navy">{s.name}</h3>
                 <p className="mt-1 text-sm font-medium text-teal">{s.role}</p>
@@ -790,6 +814,11 @@ function AgendaRow({ item, index }: { item: AgendaItem; index: number }) {
               <p className="text-base leading-relaxed text-charcoal/80 md:text-[1.02rem]">
                 {item.brief}
               </p>
+              {item.speaker && (
+                <p className="mt-4 text-sm font-medium text-navy">
+                  Speaker: <span className="text-teal">{item.speaker}</span>
+                </p>
+              )}
             </div>
           </div>
         )}
