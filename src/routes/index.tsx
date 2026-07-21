@@ -704,7 +704,19 @@ function Topics() {
 
 /* ---------------- SPEAKERS ---------------- */
 
-function SpeakerAvatar({ seed }: { seed: number }) {
+function SpeakerAvatar({ seed, photo, name }: { seed: number; photo?: string; name?: string }) {
+  if (photo) {
+    return (
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-t-[18px] bg-mist">
+        <img
+          src={photo}
+          alt={name ? `${name} headshot` : "Speaker headshot"}
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+      </div>
+    );
+  }
+
   // Deterministic geometric avatar
   const bgs = ["#0B2545", "#00A6A6", "#C9A040", "#1F2937"];
   const bg = bgs[seed % bgs.length];
