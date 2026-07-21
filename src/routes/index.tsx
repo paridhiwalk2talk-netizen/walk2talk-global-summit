@@ -66,7 +66,7 @@ const SPEAKERS = [
   })),
 ];
 
-type AgendaItem = { time: string; title: string; brief?: string };
+type AgendaItem = { time: string; title: string; brief?: string; speaker?: string };
 
 const AGENDA: AgendaItem[] = [
   { time: "5:00 – 5:10 PM", title: "Welcome Address by Walk2Talk Media" },
