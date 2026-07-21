@@ -49,12 +49,22 @@ const TOPICS = [
   "Building accessible, equitable and sustainable systems",
 ];
 
-const SPEAKERS = Array.from({ length: 8 }).map((_, i) => ({
-  name: `Speaker ${String.fromCharCode(65 + i)}${String.fromCharCode(66 + i)}${String.fromCharCode(67 + i)}`,
-  role: "Chief Executive Officer",
-  org: "Organization XYZ",
-  seed: i,
-}));
+const SPEAKERS = [
+  {
+    name: "Dr. Walid Achi",
+    role: "Chief Medical Officer",
+    org: "Emirates Hospitals Group",
+    photo: walidAchiAsset.url,
+    seed: 0,
+  },
+  ...Array.from({ length: 7 }).map((_, i) => ({
+    name: `Speaker ${String.fromCharCode(66 + i)}${String.fromCharCode(67 + i)}${String.fromCharCode(68 + i)}`,
+    role: "Chief Executive Officer",
+    org: "Organization XYZ",
+    photo: undefined as string | undefined,
+    seed: i + 1,
+  })),
+];
 
 type AgendaItem = { time: string; title: string; brief?: string };
 
