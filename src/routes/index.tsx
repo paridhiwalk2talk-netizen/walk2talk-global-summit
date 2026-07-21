@@ -752,7 +752,7 @@ function Speakers() {
               className="reveal group overflow-hidden rounded-[20px] border border-hairline bg-paper shadow-[0_6px_24px_-18px_rgba(11,37,69,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-teal hover:shadow-[0_18px_40px_-18px_rgba(0,166,166,0.35)]"
               style={{ transitionDelay: `${(i % 4) * 60}ms` }}
             >
-              <SpeakerAvatar seed={s.seed} />
+              <SpeakerAvatar seed={s.seed} photo={s.photo} name={s.name} />
               <div className="p-5">
                 <h3 className="font-display text-lg text-navy">{s.name}</h3>
                 <p className="mt-1 text-sm font-medium text-teal">{s.role}</p>
