@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import logoAsset from "@/assets/walk2talk-logo.png.asset.json";
 import walidAchiAsset from "@/assets/walid-achi.jpg.asset.json";
+import speakerBg from "@/assets/speaker-bg.jpg";
 
 export const Route = createFileRoute("/")({
   component: SummitPage,
@@ -706,32 +707,58 @@ function Topics() {
 /* ---------------- SPEAKERS ---------------- */
 
 function SpeakerAvatar({ seed, photo, name }: { seed: number; photo?: string; name?: string }) {
+  // Shared branded background for every card — keeps the visual system consistent.
+  const frame = (
+    <div
+      className="absolute inset-0"
+      style={{
+        backgroundImage: `url(${speakerBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+      aria-hidden="true"
+    />
+  );
+
   if (photo) {
     return (
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-t-[18px] bg-mist">
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-t-[20px] bg-mist">
+        {frame}
+        {/* Soft gradient wash to blend photo edges into the branded backdrop */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[1]"
+          style={{
+            background:
+              "radial-gradient(120% 90% at 50% 40%, rgba(255,255,255,0) 55%, rgba(247,250,252,0.65) 100%)",
+          }}
+          aria-hidden="true"
+        />
         <img
           src={photo}
           alt={name ? `${name} headshot` : "Speaker headshot"}
-          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+          loading="lazy"
+          className="relative z-[2] h-full w-full object-cover object-top grayscale contrast-[1.05] transition-[filter,transform] duration-500 ease-in-out will-change-transform group-hover:grayscale-0 group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
       </div>
     );
   }
 
-  // Deterministic geometric avatar
-  const bgs = ["#0B2545", "#00A6A6", "#C9A040", "#1F2937"];
-  const bg = bgs[seed % bgs.length];
-  const alt = bgs[(seed + 2) % bgs.length];
+  // Deterministic geometric silhouette placeholder, on the same branded frame.
+  const palette = ["#0B2545", "#00A6A6", "#C9A040", "#1F2937"];
+  const bg = palette[seed % palette.length];
+  const alt = palette[(seed + 2) % palette.length];
   return (
-    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-t-[18px] bg-mist">
-      <svg viewBox="0 0 200 250" className="h-full w-full transition-transform duration-500 group-hover:scale-[1.03]" aria-hidden="true">
-        <rect width="200" height="250" fill="#F7FAFC" />
-        <circle cx="100" cy="105" r="55" fill={bg} opacity="0.15" />
-        <circle cx="100" cy="105" r="42" fill={bg} />
-        <path d="M35 250 Q100 170 165 250 Z" fill={alt} opacity="0.9" />
-        <circle cx="100" cy="105" r="42" fill="none" stroke="#C9A040" strokeWidth="1.2" opacity="0.6" />
-        <circle cx="160" cy="40" r="4" fill="#C9A040" />
-        <circle cx="40" cy="50" r="3" fill="#00A6A6" />
+    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-t-[20px] bg-mist">
+      {frame}
+      <svg
+        viewBox="0 0 200 250"
+        className="relative z-[2] h-full w-full grayscale contrast-[1.05] transition-[filter,transform] duration-500 ease-in-out group-hover:grayscale-0 group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+        aria-hidden="true"
+      >
+        <circle cx="100" cy="108" r="46" fill={bg} opacity="0.18" />
+        <circle cx="100" cy="108" r="36" fill={bg} />
+        <path d="M40 250 Q100 178 160 250 Z" fill={alt} opacity="0.9" />
+        <circle cx="100" cy="108" r="36" fill="none" stroke="#C9A040" strokeWidth="1.1" opacity="0.55" />
       </svg>
     </div>
   );
@@ -746,18 +773,24 @@ function Speakers() {
           title="Speakers"
           intro="A curated roster of global leaders from health systems, government, industry and technology. Full speaker line-up to be announced."
         />
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {SPEAKERS.map((s, i) => (
             <article
               key={i}
-              className="reveal group overflow-hidden rounded-[20px] border border-hairline bg-paper shadow-[0_6px_24px_-18px_rgba(11,37,69,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-teal hover:shadow-[0_18px_40px_-18px_rgba(0,166,166,0.35)]"
+              className="reveal group overflow-hidden rounded-[20px] border border-hairline bg-paper shadow-[0_8px_28px_-20px_rgba(11,37,69,0.35)] transition-all duration-500 ease-in-out hover:-translate-y-1.5 hover:border-teal/60 hover:shadow-[0_24px_50px_-22px_rgba(11,37,69,0.35)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               style={{ transitionDelay: `${(i % 4) * 60}ms` }}
             >
               <SpeakerAvatar seed={s.seed} photo={s.photo} name={s.name} />
-              <div className="p-5">
-                <h3 className="font-display text-lg text-navy">{s.name}</h3>
-                <p className="mt-1 text-sm font-medium text-teal">{s.role}</p>
-                <p className="mt-0.5 text-sm text-charcoal/65">{s.org}</p>
+              <div className="p-6">
+                <h3 className="font-display text-lg text-navy/90 transition-colors duration-300 group-hover:text-navy">
+                  {s.name}
+                </h3>
+                <p className="mt-1 text-sm font-medium text-teal/85 transition-colors duration-300 group-hover:text-teal">
+                  {s.role}
+                </p>
+                <p className="mt-0.5 text-sm text-charcoal/60 transition-colors duration-300 group-hover:text-charcoal/80">
+                  {s.org}
+                </p>
               </div>
             </article>
           ))}
