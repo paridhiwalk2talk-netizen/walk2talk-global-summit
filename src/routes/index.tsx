@@ -82,6 +82,7 @@ const AGENDA: AgendaItem[] = [
     title: "In Conversation — From Vision to Impact: Leading Change in Healthcare",
     brief:
       "How healthcare leaders are turning strategic vision into measurable impact through innovation, collaboration and patient-centered care.",
+    speaker: "Dr. Walid Achi, Chief Medical Officer, Emirates Hospitals Group",
   },
   {
     time: "5:45 – 6:20 PM",
