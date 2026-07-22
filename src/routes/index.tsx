@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import logoAsset from "@/assets/walk2talk-logo.png.asset.json";
 import walidAchiAsset from "@/assets/walid-achi.jpg.asset.json";
+import franklinVibarAsset from "@/assets/franklin-vibar.jpg.asset.json";
 import speakerBg from "@/assets/speaker-bg.jpg";
 
 export const Route = createFileRoute("/")({
@@ -50,7 +51,7 @@ const TOPICS = [
   "Building accessible, equitable and sustainable systems",
 ];
 
-const SPEAKERS = [
+const SPEAKERS: { name: string; role: string; org: string; photo?: string; seed: number }[] = [
   {
     name: "Dr. Walid Achi",
     role: "Chief Medical Officer",
@@ -58,13 +59,13 @@ const SPEAKERS = [
     photo: walidAchiAsset.url,
     seed: 0,
   },
-  ...Array.from({ length: 7 }).map((_, i) => ({
-    name: `Speaker ${String.fromCharCode(66 + i)}${String.fromCharCode(67 + i)}${String.fromCharCode(68 + i)}`,
-    role: "Chief Executive Officer",
-    org: "Organization XYZ",
-    photo: undefined as string | undefined,
-    seed: i + 1,
-  })),
+  {
+    name: "Franklin Vibar",
+    role: "Chief Information Officer (CIO)",
+    org: "Asian Hospital and Medical Centre",
+    photo: franklinVibarAsset.url,
+    seed: 1,
+  },
 ];
 
 type AgendaItem = { time: string; title: string; brief?: string; speaker?: string };
@@ -827,8 +828,10 @@ function AgendaRow({ item, index }: { item: AgendaItem; index: number }) {
         </div>
         {hasContent && (
           <span
-            className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border border-hairline text-navy transition-all group-hover:border-teal group-hover:text-teal ${
-              open ? "rotate-45 bg-teal text-paper !border-teal" : ""
+            className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border border-hairline transition-all ${
+              open
+                ? "rotate-45 border-teal bg-teal text-paper"
+                : "text-navy group-hover:border-teal group-hover:text-teal"
             }`}
           >
             <Plus className="h-4 w-4" />
@@ -1145,14 +1148,6 @@ function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
-        </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-hairline pt-6 text-xs text-charcoal/55 md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} Walk2Talk Media. All rights reserved.</p>
-          <div className="flex flex-wrap gap-5">
-            <a href="#" className="hover:text-teal">Privacy Policy</a>
-            <a href="#" className="hover:text-teal">Terms</a>
-            <a href="#" className="hover:text-teal">Code of Conduct</a>
           </div>
         </div>
       </div>
