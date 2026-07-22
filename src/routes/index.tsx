@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import logoAsset from "@/assets/walk2talk-logo.png.asset.json";
 import walidAchiAsset from "@/assets/walid-achi.jpg.asset.json";
+import franklinVibarAsset from "@/assets/franklin-vibar.jpg.asset.json";
 import speakerBg from "@/assets/speaker-bg.jpg";
 
 export const Route = createFileRoute("/")({
