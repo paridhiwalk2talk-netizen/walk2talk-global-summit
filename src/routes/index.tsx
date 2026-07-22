@@ -1150,8 +1150,12 @@ function Footer() {
             </ul>
           </div>
         </div>
+        <div className="mt-12 border-t border-charcoal/10 pt-6 text-center text-xs text-charcoal/60">
+          © {new Date().getFullYear()} All Rights Reserved | Powered By Walk2Talk Media
+        </div>
       </div>
     </footer>
+
   );
 }
 
