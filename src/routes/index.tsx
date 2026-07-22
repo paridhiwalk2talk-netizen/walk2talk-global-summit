@@ -828,8 +828,10 @@ function AgendaRow({ item, index }: { item: AgendaItem; index: number }) {
         </div>
         {hasContent && (
           <span
-            className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border border-hairline text-navy transition-all group-hover:border-teal group-hover:text-teal ${
-              open ? "rotate-45 bg-teal text-paper !border-teal" : ""
+            className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border border-hairline transition-all ${
+              open
+                ? "rotate-45 border-teal bg-teal text-paper"
+                : "text-navy group-hover:border-teal group-hover:text-teal"
             }`}
           >
             <Plus className="h-4 w-4" />
