@@ -1150,14 +1150,6 @@ function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-hairline pt-6 text-xs text-charcoal/55 md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} Walk2Talk Media. All rights reserved.</p>
-          <div className="flex flex-wrap gap-5">
-            <a href="#" className="hover:text-teal">Privacy Policy</a>
-            <a href="#" className="hover:text-teal">Terms</a>
-            <a href="#" className="hover:text-teal">Code of Conduct</a>
-          </div>
-        </div>
       </div>
     </footer>
   );
