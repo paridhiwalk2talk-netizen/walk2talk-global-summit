@@ -63,7 +63,7 @@ const SPEAKERS: { name: string; role: string; org: string; photo?: string; seed:
     name: "Franklin Vibar",
     role: "Chief Information Officer (CIO)",
     org: "Asian Hospital and Medical Centre",
-    photo: undefined,
+    photo: franklinVibarAsset.url,
     seed: 1,
   },
 ];
