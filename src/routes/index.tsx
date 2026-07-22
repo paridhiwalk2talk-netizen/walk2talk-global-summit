@@ -50,7 +50,7 @@ const TOPICS = [
   "Building accessible, equitable and sustainable systems",
 ];
 
-const SPEAKERS = [
+const SPEAKERS: { name: string; role: string; org: string; photo?: string; seed: number }[] = [
   {
     name: "Dr. Walid Achi",
     role: "Chief Medical Officer",
@@ -58,13 +58,13 @@ const SPEAKERS = [
     photo: walidAchiAsset.url,
     seed: 0,
   },
-  ...Array.from({ length: 7 }).map((_, i) => ({
-    name: `Speaker ${String.fromCharCode(66 + i)}${String.fromCharCode(67 + i)}${String.fromCharCode(68 + i)}`,
-    role: "Chief Executive Officer",
-    org: "Organization XYZ",
-    photo: undefined as string | undefined,
-    seed: i + 1,
-  })),
+  {
+    name: "Franklin Vibar",
+    role: "Chief Information Officer (CIO)",
+    org: "Asian Hospital and Medical Centre",
+    photo: undefined,
+    seed: 1,
+  },
 ];
 
 type AgendaItem = { time: string; title: string; brief?: string; speaker?: string };
