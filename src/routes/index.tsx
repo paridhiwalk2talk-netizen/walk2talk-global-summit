@@ -260,6 +260,7 @@ function SectionHeading({
 /* ---------------- NAV ---------------- */
 
 function Nav() {
+  const { open: openRegister } = useRegister();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
