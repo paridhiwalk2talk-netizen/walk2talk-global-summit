@@ -293,12 +293,13 @@ function Nav() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <a
-            href="#register"
+          <button
+            type="button"
+            onClick={() => openRegister()}
             className="hidden rounded-full bg-navy px-5 py-2.5 text-[0.8rem] font-semibold text-paper shadow-[0_6px_20px_-8px_rgba(11,37,69,0.45)] transition-all hover:-translate-y-0.5 hover:bg-teal hover:shadow-[0_10px_28px_-8px_rgba(0,166,166,0.5)] md:inline-flex"
           >
             Register
-          </a>
+          </button>
           <button
             className="rounded-full border border-hairline p-2 lg:hidden"
             onClick={() => setOpen((v) => !v)}
@@ -322,13 +323,16 @@ function Nav() {
                 {l.label}
               </a>
             ))}
-            <a
-              href="#register"
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openRegister();
+              }}
               className="mt-3 inline-flex justify-center rounded-full bg-navy px-5 py-3 text-sm font-semibold text-paper"
             >
               Register
-            </a>
+            </button>
           </div>
         </div>
       )}
