@@ -576,13 +576,14 @@ function Hero() {
             className="mt-8 flex flex-wrap items-center gap-3 animate-fade-up"
             style={{ animationDelay: "0.45s" }}
           >
-            <a
-              href="#register"
+            <button
+              type="button"
+              onClick={() => openRegister()}
               className="group inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-sm font-semibold text-paper shadow-[0_10px_30px_-10px_rgba(11,37,69,0.5)] transition-all hover:-translate-y-0.5 hover:bg-teal hover:shadow-[0_14px_34px_-10px_rgba(0,166,166,0.5)]"
             >
               Register Now
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
+            </button>
             <a
               href="#agenda"
               className="inline-flex items-center gap-2 rounded-full border border-navy px-7 py-3.5 text-sm font-semibold text-navy transition-colors hover:bg-mist"
