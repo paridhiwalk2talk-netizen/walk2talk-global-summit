@@ -542,6 +542,7 @@ function HeroIllustration() {
 
 function Hero() {
   const c = useCountdown(SUMMIT_UTC);
+  const { open: openRegister } = useRegister();
   return (
     <section id="top" className="relative overflow-hidden bg-paper pt-28 md:pt-32">
       <div className="pointer-events-none absolute inset-0">
