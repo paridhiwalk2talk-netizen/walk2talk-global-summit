@@ -1174,18 +1174,20 @@ function Footer() {
 function SummitPage() {
   useReveal();
   return (
-    <main className="bg-paper text-charcoal">
-      <Nav />
-      <Hero />
-      <Overview />
-      <Topics />
-      <Speakers />
-      <Agenda />
-      <WhyAttend />
-      <WhoShouldAttend />
-      <Faq />
-      <RegisterCTA />
-      <Footer />
-    </main>
+    <RegisterProvider>
+      <main className="bg-paper text-charcoal">
+        <Nav />
+        <Hero />
+        <Overview />
+        <Topics />
+        <Speakers />
+        <Agenda />
+        <WhyAttend />
+        <WhoShouldAttend />
+        <Faq />
+        <RegisterCTA />
+        <Footer />
+      </main>
+    </RegisterProvider>
   );
 }
