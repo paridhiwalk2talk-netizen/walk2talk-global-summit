@@ -1075,6 +1075,7 @@ function Faq() {
 /* ---------------- REGISTER CTA ---------------- */
 
 function RegisterCTA() {
+  const { open: openRegister } = useRegister();
   return (
     <section id="register" className="relative overflow-hidden bg-navy py-24 text-paper md:py-32">
       {/* subtle backdrop */}
@@ -1092,13 +1093,14 @@ function RegisterCTA() {
           qualifying executives, policymakers, clinicians, investors and industry leaders.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="mailto:register@walk2talkmedia.com?subject=Walk2Talk%20Global%20Healthcare%20Summit%202026%20-%20Registration"
+          <button
+            type="button"
+            onClick={() => openRegister()}
             className="inline-flex items-center gap-2 rounded-full bg-paper px-8 py-4 text-sm font-semibold text-navy transition-all hover:-translate-y-0.5 hover:bg-gold hover:text-navy"
           >
             Register Now
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </button>
         </div>
         <p className="mt-8 font-mono-data text-paper/50">
           Virtual · 27 August 2026 · Indian Standard Time
