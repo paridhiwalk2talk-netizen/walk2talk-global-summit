@@ -181,6 +181,22 @@
   animation: float-slow 8s ease-in-out infinite;
 }
 
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@utility animate-modal-in {
+  animation: modal-in 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@utility animate-fade-in {
+  animation: fade-in 0.2s ease-out both;
+}
+
 .pulse-node { animation: pulse-node 3.6s ease-in-out infinite; transform-origin: center; }
 .draw-line { stroke-dasharray: 400; animation: draw-line 4s ease-out both; }
 

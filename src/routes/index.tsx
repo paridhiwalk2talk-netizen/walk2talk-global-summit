@@ -18,6 +18,7 @@ import logoAsset from "@/assets/walk2talk-logo.png.asset.json";
 import walidAchiAsset from "@/assets/walid-achi.jpg.asset.json";
 import franklinVibarAsset from "@/assets/franklin-vibar.jpg.asset.json";
 import speakerBg from "@/assets/speaker-bg.jpg";
+import { RegisterProvider, useRegister } from "@/components/RegisterModal";
 
 export const Route = createFileRoute("/")({
   component: SummitPage,
@@ -259,6 +260,7 @@ function SectionHeading({
 /* ---------------- NAV ---------------- */
 
 function Nav() {
+  const { open: openRegister } = useRegister();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -292,12 +294,13 @@ function Nav() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <a
-            href="#register"
+          <button
+            type="button"
+            onClick={() => openRegister()}
             className="hidden rounded-full bg-navy px-5 py-2.5 text-[0.8rem] font-semibold text-paper shadow-[0_6px_20px_-8px_rgba(11,37,69,0.45)] transition-all hover:-translate-y-0.5 hover:bg-teal hover:shadow-[0_10px_28px_-8px_rgba(0,166,166,0.5)] md:inline-flex"
           >
             Register
-          </a>
+          </button>
           <button
             className="rounded-full border border-hairline p-2 lg:hidden"
             onClick={() => setOpen((v) => !v)}
@@ -321,13 +324,16 @@ function Nav() {
                 {l.label}
               </a>
             ))}
-            <a
-              href="#register"
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openRegister();
+              }}
               className="mt-3 inline-flex justify-center rounded-full bg-navy px-5 py-3 text-sm font-semibold text-paper"
             >
               Register
-            </a>
+            </button>
           </div>
         </div>
       )}
@@ -536,6 +542,7 @@ function HeroIllustration() {
 
 function Hero() {
   const c = useCountdown(SUMMIT_UTC);
+  const { open: openRegister } = useRegister();
   return (
     <section id="top" className="relative overflow-hidden bg-paper pt-28 md:pt-32">
       <div className="pointer-events-none absolute inset-0">
@@ -569,13 +576,14 @@ function Hero() {
             className="mt-8 flex flex-wrap items-center gap-3 animate-fade-up"
             style={{ animationDelay: "0.45s" }}
           >
-            <a
-              href="#register"
+            <button
+              type="button"
+              onClick={() => openRegister()}
               className="group inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 text-sm font-semibold text-paper shadow-[0_10px_30px_-10px_rgba(11,37,69,0.5)] transition-all hover:-translate-y-0.5 hover:bg-teal hover:shadow-[0_14px_34px_-10px_rgba(0,166,166,0.5)]"
             >
               Register Now
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
+            </button>
             <a
               href="#agenda"
               className="inline-flex items-center gap-2 rounded-full border border-navy px-7 py-3.5 text-sm font-semibold text-navy transition-colors hover:bg-mist"
@@ -1067,6 +1075,7 @@ function Faq() {
 /* ---------------- REGISTER CTA ---------------- */
 
 function RegisterCTA() {
+  const { open: openRegister } = useRegister();
   return (
     <section id="register" className="relative overflow-hidden bg-navy py-24 text-paper md:py-32">
       {/* subtle backdrop */}
@@ -1084,13 +1093,14 @@ function RegisterCTA() {
           qualifying executives, policymakers, clinicians, investors and industry leaders.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="mailto:register@walk2talkmedia.com?subject=Walk2Talk%20Global%20Healthcare%20Summit%202026%20-%20Registration"
+          <button
+            type="button"
+            onClick={() => openRegister()}
             className="inline-flex items-center gap-2 rounded-full bg-paper px-8 py-4 text-sm font-semibold text-navy transition-all hover:-translate-y-0.5 hover:bg-gold hover:text-navy"
           >
             Register Now
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </button>
         </div>
         <p className="mt-8 font-mono-data text-paper/50">
           Virtual · 27 August 2026 · Indian Standard Time
@@ -1164,18 +1174,20 @@ function Footer() {
 function SummitPage() {
   useReveal();
   return (
-    <main className="bg-paper text-charcoal">
-      <Nav />
-      <Hero />
-      <Overview />
-      <Topics />
-      <Speakers />
-      <Agenda />
-      <WhyAttend />
-      <WhoShouldAttend />
-      <Faq />
-      <RegisterCTA />
-      <Footer />
-    </main>
+    <RegisterProvider>
+      <main className="bg-paper text-charcoal">
+        <Nav />
+        <Hero />
+        <Overview />
+        <Topics />
+        <Speakers />
+        <Agenda />
+        <WhyAttend />
+        <WhoShouldAttend />
+        <Faq />
+        <RegisterCTA />
+        <Footer />
+      </main>
+    </RegisterProvider>
   );
 }
