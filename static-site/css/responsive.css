@@ -1,0 +1,54 @@
+/* =========================================================
+   Responsive overrides
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .nav__links { display: none; }
+  .nav__toggle { display: inline-flex; }
+  .hero__inner { grid-template-columns: 1fr; }
+  .hero__art { max-width: 420px; margin-top: 20px; }
+  .speakers__grid { grid-template-columns: repeat(2, 1fr); }
+  .why__grid { grid-template-columns: repeat(2, 1fr); }
+  .who__grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+  .footer__brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 720px) {
+  .section { padding: 72px 0; }
+  .container { padding: 0 18px; }
+  [data-desktop-only] { display: none !important; }
+  .hero { padding: 120px 0 64px; }
+  .hero__inner { padding: 0 18px; gap: 24px; }
+  .hero__highlights { grid-template-columns: repeat(2, 1fr); }
+  .countdown__grid { max-width: 100%; }
+  .overview__grid { grid-template-columns: 1fr; gap: 28px; }
+  .overview__quote { top: -12px; }
+  .topics__grid { grid-template-columns: 1fr; column-gap: 0; }
+  .speakers__grid { grid-template-columns: 1fr; gap: 20px; }
+  .agenda__btn { padding: 20px; gap: 12px; }
+  .agenda__meta { grid-template-columns: 100px 1fr; gap: 12px; }
+  .agenda__inner { padding: 0 20px 20px; }
+  .agenda__brief { padding-left: 16px; margin-left: 0; }
+  .agenda__title { font-size: 1.1rem; }
+  .agenda__time { font-size: 0.85rem; padding-top: 3px; }
+  .why__grid { grid-template-columns: 1fr; }
+  .who__grid { grid-template-columns: 1fr; gap: 32px; }
+  .cta { padding: 72px 0; }
+  .footer__grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer__brand { grid-column: auto; }
+  .modal { padding: 12px; align-items: flex-end; }
+  .modal__dialog { max-height: 94vh; }
+  .modal__body { padding: 28px 22px; }
+  .modal__title { font-size: 1.35rem; }
+  .field-row { grid-template-columns: 1fr; gap: 0; }
+  .field-row .field { margin-top: 18px; }
+}
+
+@media (max-width: 420px) {
+  .hero__title { font-size: 2.2rem; }
+  .hero__theme { font-size: 1.05rem; }
+  .heading h2 { font-size: 1.75rem; }
+  .btn { padding: 12px 22px; font-size: 0.82rem; }
+  .count__v { font-size: 1.5rem; }
+}
