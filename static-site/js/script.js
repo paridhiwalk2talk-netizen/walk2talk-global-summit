@@ -363,8 +363,10 @@ function validate(f) {
   if (!f.contactNumber.trim()) err.contactNumber = "Contact number is required.";
   else if (!/^[+()\-\s\d]{6,30}$/.test(f.contactNumber.trim())) err.contactNumber = "Enter a valid international phone number.";
   if (!f.country.trim()) err.country = "Please select your country.";
+  if (!f.pass || !f.pass.trim()) err.pass = "Please select a pass.";
   return err;
 }
+
 
 function initForm() {
   const form = $("#register-form");
