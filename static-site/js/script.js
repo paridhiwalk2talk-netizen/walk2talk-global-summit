@@ -363,8 +363,10 @@ function validate(f) {
   if (!f.contactNumber.trim()) err.contactNumber = "Contact number is required.";
   else if (!/^[+()\-\s\d]{6,30}$/.test(f.contactNumber.trim())) err.contactNumber = "Enter a valid international phone number.";
   if (!f.country.trim()) err.country = "Please select your country.";
+  if (!f.pass || !f.pass.trim()) err.pass = "Please select a pass.";
   return err;
 }
+
 
 function initForm() {
   const form = $("#register-form");
@@ -399,15 +401,17 @@ function initForm() {
       email: $("#reg-email").value,
       contactNumber: $("#reg-contact").value,
       country: $("#reg-country").value,
+      pass: $("#reg-pass").value,
+      message: $("#reg-message").value,
     };
     const errs = validate(data);
     // paint errors
-    ["fullName","designation","organization","email","contactNumber","country"].forEach((k) => {
+    ["fullName","designation","organization","email","contactNumber","country","pass"].forEach((k) => {
       const errEl = $(`.err[data-err-for="${k}"]`);
       if (errEl) errEl.textContent = errs[k] || "";
       const inputId = ({
         fullName: "reg-fullName", designation: "reg-designation", organization: "reg-organization",
-        email: "reg-email", contactNumber: "reg-contact",
+        email: "reg-email", contactNumber: "reg-contact", pass: "reg-pass",
       })[k];
       if (inputId) $("#" + inputId)?.classList.toggle("is-invalid", !!errs[k]);
       if (k === "country") $("#country-select").classList.toggle("is-invalid", !!errs[k]);
@@ -423,15 +427,26 @@ function initForm() {
       }
       await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
         from_name: data.fullName,
+        name: data.fullName,
         from_email: data.email,
+        email: data.email,
         reply_to: data.email,
         designation: data.designation,
         organization: data.organization,
+        company: data.organization,
         contact_number: data.contactNumber,
+        phone: data.contactNumber,
         country: data.country,
+        selected_pass: data.pass,
+        message: data.message || "—",
+        timestamp: new Date().toLocaleString("en-GB", { timeZone: "Asia/Kolkata", hour12: false }) + " IST",
         to_email: "contact@walk2talkmedia.com",
         subject: "New Summit Registration | Walk2Talk Global Healthcare Summit 2026",
       });
+      form.reset();
+      $("#country-value").textContent = "Select country";
+      $("#reg-country").value = "";
+      $("#country-select").classList.remove("has-value");
       showSuccess();
     } catch (err) {
       console.error(err);
@@ -445,21 +460,25 @@ function initForm() {
   });
 }
 
+
 function showSuccess() {
-  $("#modal-body").innerHTML = `
+  const body = $("#modal-body");
+  const original = body.innerHTML;
+  body.innerHTML = `
     <div class="success">
       <div class="success__badge">✓</div>
-      <h3>Registration Successful!</h3>
+      <h3>Registration submitted successfully.</h3>
       <span class="gold-rule gold-rule--center"></span>
       <p>Thank you for registering for the Walk2Talk Global Healthcare Summit 2026. Our team has received your registration and will contact you shortly with further details.</p>
       <button type="button" class="btn btn--primary" id="success-close">Close</button>
     </div>`;
   $("#success-close").addEventListener("click", () => {
     closeModal();
-    // Rebuild the form when the modal is reopened
-    setTimeout(() => location.reload(), 350);
+    // Restore a fresh form for the next visitor — no page reload needed
+    setTimeout(() => { body.innerHTML = original; initCountry(); initForm(); }, 350);
   });
 }
+
 
 /* ==================== Boot ==================== */
 

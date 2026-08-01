@@ -308,6 +308,23 @@
           </div>
           <p class="err" data-err-for="country"></p>
         </div>
+        <div class="field">
+          <label for="reg-pass">Select Pass <span class="req">*</span></label>
+          <select id="reg-pass" name="pass" required>
+            <option value="Delegate Pass">Delegate Pass</option>
+            <option value="Executive Pass">Executive Pass</option>
+            <option value="Speaker Pass">Speaker Pass</option>
+            <option value="Partner / Sponsor Pass">Partner / Sponsor Pass</option>
+            <option value="Media Pass">Media Pass</option>
+          </select>
+          <p class="err" data-err-for="pass"></p>
+        </div>
+        <div class="field">
+          <label for="reg-message">Message</label>
+          <textarea id="reg-message" name="message" rows="3" placeholder="Anything you'd like us to know (optional)"></textarea>
+          <p class="err" data-err-for="message"></p>
+        </div>
+
         <p class="form-error" id="form-error" hidden></p>
         <button type="submit" class="btn btn--primary btn--block" id="submit-btn">Register Now</button>
         <p class="form-note">We'll email you further details after your registration is received.</p>

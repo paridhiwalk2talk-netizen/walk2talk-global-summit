@@ -11,7 +11,38 @@ import {
 } from "react";
 import { X, Loader2, CheckCircle2, ChevronDown, Search } from "lucide-react";
 
+/* ---------------- EmailJS (client-side only, no backend) ----------------
+   Replace these 3 values with your EmailJS keys (emailjs.com).
+   The same keys are also used by the static site in static-site/js/script.js. */
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+type EmailJs = { init: (o: { publicKey: string }) => void; send: (s: string, t: string, p: Record<string, string>) => Promise<unknown> };
+
+async function loadEmailJs(): Promise<EmailJs> {
+  if (EMAILJS_PUBLIC_KEY.startsWith("YOUR_")) {
+    throw new Error(
+      "EmailJS is not configured yet. Add your EmailJS keys to enable email delivery.",
+    );
+  }
+  const w = window as unknown as { emailjs?: EmailJs };
+  if (!w.emailjs) {
+    await new Promise<void>((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error("Could not load the email service."));
+      document.head.appendChild(s);
+    });
+  }
+  const ejs = (window as unknown as { emailjs: EmailJs }).emailjs;
+  ejs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  return ejs;
+}
+
 /* ---------------- Context ---------------- */
+
 
 type RegisterCtx = { open: () => void };
 const RegisterContext = createContext<RegisterCtx | null>(null);
@@ -172,23 +203,36 @@ function RegisterModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
     setStatus("submitting");
     setErrorMessage("");
     try {
-      const res = await fetch("/api/public/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      const emailjs = await loadEmailJs();
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: form.fullName,
+        name: form.fullName,
+        from_email: form.email,
+        email: form.email,
+        reply_to: form.email,
+        designation: form.designation,
+        organization: form.organization,
+        company: form.organization,
+        contact_number: form.contactNumber,
+        phone: form.contactNumber,
+        country: form.country,
+        to_email: "contact@walk2talkmedia.com",
+        timestamp: new Date().toLocaleString("en-GB", { timeZone: "Asia/Kolkata", hour12: false }) + " IST",
+        subject: "New Summit Registration | Walk2Talk Global Healthcare Summit 2026",
       });
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body?.error || "Request failed");
-      }
       setStatus("success");
+      setForm(EMPTY);
+      setErrors({});
     } catch (err) {
       console.error(err);
       setStatus("error");
       setErrorMessage(
-        "Something went wrong. Please try again or contact us at contact@walk2talkmedia.com.",
+        err instanceof Error && err.message
+          ? err.message
+          : "Something went wrong. Please try again or contact us at contact@walk2talkmedia.com.",
       );
     }
+
   };
 
   if (!isOpen) return null;
