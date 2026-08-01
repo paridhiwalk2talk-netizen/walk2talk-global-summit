@@ -172,23 +172,36 @@ function RegisterModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
     setStatus("submitting");
     setErrorMessage("");
     try {
-      const res = await fetch("/api/public/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      const emailjs = await loadEmailJs();
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: form.fullName,
+        name: form.fullName,
+        from_email: form.email,
+        email: form.email,
+        reply_to: form.email,
+        designation: form.designation,
+        organization: form.organization,
+        company: form.organization,
+        contact_number: form.contactNumber,
+        phone: form.contactNumber,
+        country: form.country,
+        to_email: "contact@walk2talkmedia.com",
+        timestamp: new Date().toLocaleString("en-GB", { timeZone: "Asia/Kolkata", hour12: false }) + " IST",
+        subject: "New Summit Registration | Walk2Talk Global Healthcare Summit 2026",
       });
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body?.error || "Request failed");
-      }
       setStatus("success");
+      setForm(EMPTY);
+      setErrors({});
     } catch (err) {
       console.error(err);
       setStatus("error");
       setErrorMessage(
-        "Something went wrong. Please try again or contact us at contact@walk2talkmedia.com.",
+        err instanceof Error && err.message
+          ? err.message
+          : "Something went wrong. Please try again or contact us at contact@walk2talkmedia.com.",
       );
     }
+
   };
 
   if (!isOpen) return null;
