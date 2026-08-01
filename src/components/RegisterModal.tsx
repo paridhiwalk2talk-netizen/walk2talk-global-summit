@@ -11,7 +11,38 @@ import {
 } from "react";
 import { X, Loader2, CheckCircle2, ChevronDown, Search } from "lucide-react";
 
+/* ---------------- EmailJS (client-side only, no backend) ----------------
+   Replace these 3 values with your EmailJS keys (emailjs.com).
+   The same keys are also used by the static site in static-site/js/script.js. */
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+type EmailJs = { init: (o: { publicKey: string }) => void; send: (s: string, t: string, p: Record<string, string>) => Promise<unknown> };
+
+async function loadEmailJs(): Promise<EmailJs> {
+  if (EMAILJS_PUBLIC_KEY.startsWith("YOUR_")) {
+    throw new Error(
+      "EmailJS is not configured yet. Add your EmailJS keys to enable email delivery.",
+    );
+  }
+  const w = window as unknown as { emailjs?: EmailJs };
+  if (!w.emailjs) {
+    await new Promise<void>((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error("Could not load the email service."));
+      document.head.appendChild(s);
+    });
+  }
+  const ejs = (window as unknown as { emailjs: EmailJs }).emailjs;
+  ejs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  return ejs;
+}
+
 /* ---------------- Context ---------------- */
+
 
 type RegisterCtx = { open: () => void };
 const RegisterContext = createContext<RegisterCtx | null>(null);
