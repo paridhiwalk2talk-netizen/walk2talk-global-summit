@@ -44,13 +44,17 @@ The form uses [EmailJS](https://www.emailjs.com) (free tier) so submissions go s
 1. Create a free account at https://www.emailjs.com.
 2. **Add an Email Service** (Gmail, Outlook, or your own SMTP) that will deliver messages to `contact@walk2talkmedia.com`.
 3. **Create an Email Template.** In the template body use these variables:
-   - `{{from_name}}`
-   - `{{from_email}}`
+   - `{{from_name}}` (name)
+   - `{{from_email}}` (email)
    - `{{designation}}`
-   - `{{organization}}`
-   - `{{contact_number}}`
+   - `{{organization}}` (company)
+   - `{{contact_number}}` (phone)
    - `{{country}}`
+   - `{{selected_pass}}`
+   - `{{message}}`
+   - `{{timestamp}}`
    - `{{subject}}`
+
    
    In the template settings set:
    - **To Email:** `contact@walk2talkmedia.com`
