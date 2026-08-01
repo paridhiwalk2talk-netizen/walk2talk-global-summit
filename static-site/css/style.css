@@ -629,6 +629,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .req { color: #dc2626; }
 .field input,
+.field select,
+.field textarea,
 .country__btn {
   width: 100%;
   padding: 12px 16px;
@@ -641,11 +643,13 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
-.field input:focus, .country__btn:focus {
+.field textarea { resize: vertical; min-height: 84px; }
+.field input:focus, .field select:focus, .field textarea:focus, .country__btn:focus {
   border-color: var(--teal);
   box-shadow: 0 0 0 3px rgba(0,166,166,.2);
 }
-.field input.is-invalid, .country.is-invalid .country__btn { border-color: #f87171; }
+.field input.is-invalid, .field select.is-invalid, .country.is-invalid .country__btn { border-color: #f87171; }
+
 .err { min-height: 16px; margin: 6px 0 0; font-size: 0.72rem; color: #dc2626; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
 .field-row .field { margin-top: 0; }
