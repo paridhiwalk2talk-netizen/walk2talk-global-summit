@@ -462,20 +462,23 @@ function initForm() {
 
 
 function showSuccess() {
-  $("#modal-body").innerHTML = `
+  const body = $("#modal-body");
+  const original = body.innerHTML;
+  body.innerHTML = `
     <div class="success">
       <div class="success__badge">✓</div>
-      <h3>Registration Successful!</h3>
+      <h3>Registration submitted successfully.</h3>
       <span class="gold-rule gold-rule--center"></span>
       <p>Thank you for registering for the Walk2Talk Global Healthcare Summit 2026. Our team has received your registration and will contact you shortly with further details.</p>
       <button type="button" class="btn btn--primary" id="success-close">Close</button>
     </div>`;
   $("#success-close").addEventListener("click", () => {
     closeModal();
-    // Rebuild the form when the modal is reopened
-    setTimeout(() => location.reload(), 350);
+    // Restore a fresh form for the next visitor — no page reload needed
+    setTimeout(() => { body.innerHTML = original; initCountry(); initForm(); }, 350);
   });
 }
+
 
 /* ==================== Boot ==================== */
 
