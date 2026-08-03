@@ -3,16 +3,26 @@
    ========================================================= */
 
 /* -------------------------------------------------------------------
-   EMAILJS CONFIG — REPLACE THESE 3 VALUES to enable form-to-email delivery.
-   1. Create a free account at https://www.emailjs.com
-   2. Add an email service (Gmail/Outlook/etc.) that sends TO contact@walk2talkmedia.com
-   3. Create an email template with variables: from_name, from_email, designation,
-      organization, contact_number, country, subject, reply_to
-   4. Paste your Public Key, Service ID and Template ID below.
+   GOOGLE SHEET CONFIG — paste your Apps Script Web App URL below.
+   Setup (5 min, no backend, no npm):
+   1. Create a Google Sheet. First row headers:
+      Timestamp | Name | Designation | Company | Email | Phone | Country | Selected Pass | Message
+   2. Extensions -> Apps Script, paste:
+
+      function doPost(e) {
+        var s = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+        var d = JSON.parse(e.postData.contents);
+        s.appendRow([d.timestamp, d.fullName, d.designation, d.organization,
+                     d.email, d.contactNumber, d.country, d.pass, d.message]);
+        return ContentService.createTextOutput(JSON.stringify({ok:true}))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+
+   3. Deploy -> New deployment -> Web app -> Execute as: Me,
+      Who has access: Anyone. Copy the /exec URL and paste it below.
 ------------------------------------------------------------------- */
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
-const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const GOOGLE_SHEET_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL";
+
 
 /* ==================== Data ==================== */
 
