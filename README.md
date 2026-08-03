@@ -35,41 +35,39 @@ Upload the entire folder to any static host: GitHub Pages, Netlify, Vercel Stati
 └── README.md
 ```
 
-## Registration form — send submissions to your email
+## Registration form — send submissions to a Google Sheet
 
-The form uses [EmailJS](https://www.emailjs.com) (free tier) so submissions go straight to `contact@walk2talkmedia.com` from the browser, with no backend.
+The form posts each registration straight into a Google Sheet using a Google Apps Script Web App. No backend, no database, no npm.
 
 **One-time setup (5 minutes):**
 
-1. Create a free account at https://www.emailjs.com.
-2. **Add an Email Service** (Gmail, Outlook, or your own SMTP) that will deliver messages to `contact@walk2talkmedia.com`.
-3. **Create an Email Template.** In the template body use these variables:
-   - `{{from_name}}` (name)
-   - `{{from_email}}` (email)
-   - `{{designation}}`
-   - `{{organization}}` (company)
-   - `{{contact_number}}` (phone)
-   - `{{country}}`
-   - `{{selected_pass}}`
-   - `{{message}}`
-   - `{{timestamp}}`
-   - `{{subject}}`
+1. Create a Google Sheet. In row 1 add these headers:
+   `Timestamp | Name | Designation | Company | Email | Phone | Country | Selected Pass | Message`
+2. In the sheet, open **Extensions → Apps Script** and paste:
 
-   
-   In the template settings set:
-   - **To Email:** `contact@walk2talkmedia.com`
-   - **Subject:** `{{subject}}`
-   - **Reply To:** `{{reply_to}}`
-4. Copy your **Public Key**, **Service ID** and **Template ID** from the EmailJS dashboard.
-5. Open `js/script.js` and replace the three values at the top:
    ```js
-   const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
-   const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
-   const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+   function doPost(e) {
+     var s = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+     var d = JSON.parse(e.postData.contents);
+     s.appendRow([d.timestamp, d.fullName, d.designation, d.organization,
+                  d.email, d.contactNumber, d.country, d.pass, d.message]);
+     return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+       .setMimeType(ContentService.MimeType.JSON);
+   }
    ```
-6. Save and re-upload `js/script.js`. Done — the form now emails you every submission.
 
-Any other email service works too (Formspree, Web3Forms, Getform, etc.) — just replace the `emailjs.send(...)` call inside `initForm()` with their fetch snippet.
+3. **Deploy → New deployment → Web app**. Set *Execute as* = **Me**, *Who has access* = **Anyone**. Authorize when prompted.
+4. Copy the deployment URL (ends in `/exec`).
+5. Open `js/script.js` and set it at the top:
+   ```js
+   const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AAAA.../exec";
+   ```
+6. Save and re-upload `js/script.js`. Every submission now appears as a new row in your sheet.
+
+To also get an email alert, add `MailApp.sendEmail("contact@walk2talkmedia.com", "New Summit Registration", JSON.stringify(d, null, 2));` inside `doPost`.
+
+**Note:** the browser sends the request in `no-cors` mode (required for Apps Script), so the site cannot read the response — a submission is reported as successful once the request is sent. Verify the sheet after your first test submission.
+
 
 ## Editing content
 
