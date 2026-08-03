@@ -3,16 +3,26 @@
    ========================================================= */
 
 /* -------------------------------------------------------------------
-   EMAILJS CONFIG — REPLACE THESE 3 VALUES to enable form-to-email delivery.
-   1. Create a free account at https://www.emailjs.com
-   2. Add an email service (Gmail/Outlook/etc.) that sends TO contact@walk2talkmedia.com
-   3. Create an email template with variables: from_name, from_email, designation,
-      organization, contact_number, country, subject, reply_to
-   4. Paste your Public Key, Service ID and Template ID below.
+   GOOGLE SHEET CONFIG — paste your Apps Script Web App URL below.
+   Setup (5 min, no backend, no npm):
+   1. Create a Google Sheet. First row headers:
+      Timestamp | Name | Designation | Company | Email | Phone | Country | Selected Pass | Message
+   2. Extensions -> Apps Script, paste:
+
+      function doPost(e) {
+        var s = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+        var d = JSON.parse(e.postData.contents);
+        s.appendRow([d.timestamp, d.fullName, d.designation, d.organization,
+                     d.email, d.contactNumber, d.country, d.pass, d.message]);
+        return ContentService.createTextOutput(JSON.stringify({ok:true}))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+
+   3. Deploy -> New deployment -> Web app -> Execute as: Me,
+      Who has access: Anyone. Copy the /exec URL and paste it below.
 ------------------------------------------------------------------- */
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
-const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const GOOGLE_SHEET_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL";
+
 
 /* ==================== Data ==================== */
 
@@ -373,13 +383,8 @@ function initForm() {
   const submitBtn = $("#submit-btn");
   const formError = $("#form-error");
 
-  // Init EmailJS if the placeholder was replaced
-  const emailJsReady =
-    typeof window.emailjs !== "undefined" &&
-    EMAILJS_PUBLIC_KEY && !EMAILJS_PUBLIC_KEY.startsWith("YOUR_");
-  if (emailJsReady) {
-    try { window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch (_) {}
-  }
+  const sheetReady = GOOGLE_SHEET_URL && !GOOGLE_SHEET_URL.startsWith("YOUR_");
+
 
   form.addEventListener("input", (e) => {
     const t = e.target;
@@ -422,27 +427,29 @@ function initForm() {
     submitBtn.textContent = "Submitting…";
 
     try {
-      if (!emailJsReady) {
-        throw new Error("EmailJS is not configured. Open js/script.js and set EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, and EMAILJS_TEMPLATE_ID.");
+      if (!sheetReady) {
+        throw new Error("Google Sheet is not configured. Open js/script.js and set GOOGLE_SHEET_URL to your Apps Script Web App URL.");
       }
-      await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        from_name: data.fullName,
-        name: data.fullName,
-        from_email: data.email,
-        email: data.email,
-        reply_to: data.email,
-        designation: data.designation,
-        organization: data.organization,
-        company: data.organization,
-        contact_number: data.contactNumber,
-        phone: data.contactNumber,
-        country: data.country,
-        selected_pass: data.pass,
-        message: data.message || "—",
+      const payload = {
         timestamp: new Date().toLocaleString("en-GB", { timeZone: "Asia/Kolkata", hour12: false }) + " IST",
-        to_email: "contact@walk2talkmedia.com",
-        subject: "New Summit Registration | Walk2Talk Global Healthcare Summit 2026",
+        fullName: data.fullName.trim(),
+        designation: data.designation.trim(),
+        organization: data.organization.trim(),
+        email: data.email.trim(),
+        contactNumber: data.contactNumber.trim(),
+        country: data.country,
+        pass: data.pass,
+        message: (data.message || "").trim() || "—",
+      };
+      // text/plain keeps the request "simple" so the browser skips the CORS preflight
+      // that Apps Script cannot answer; no-cors makes the opaque response acceptable.
+      await fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
       });
+
       form.reset();
       $("#country-value").textContent = "Select country";
       $("#reg-country").value = "";
