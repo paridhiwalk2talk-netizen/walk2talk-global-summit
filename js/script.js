@@ -383,13 +383,8 @@ function initForm() {
   const submitBtn = $("#submit-btn");
   const formError = $("#form-error");
 
-  // Init EmailJS if the placeholder was replaced
-  const emailJsReady =
-    typeof window.emailjs !== "undefined" &&
-    EMAILJS_PUBLIC_KEY && !EMAILJS_PUBLIC_KEY.startsWith("YOUR_");
-  if (emailJsReady) {
-    try { window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); } catch (_) {}
-  }
+  const sheetReady = GOOGLE_SHEET_URL && !GOOGLE_SHEET_URL.startsWith("YOUR_");
+
 
   form.addEventListener("input", (e) => {
     const t = e.target;
