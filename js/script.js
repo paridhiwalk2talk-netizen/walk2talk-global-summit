@@ -427,27 +427,29 @@ function initForm() {
     submitBtn.textContent = "Submitting…";
 
     try {
-      if (!emailJsReady) {
-        throw new Error("EmailJS is not configured. Open js/script.js and set EMAILJS_PUBLIC_KEY, EMAILJS_SERVICE_ID, and EMAILJS_TEMPLATE_ID.");
+      if (!sheetReady) {
+        throw new Error("Google Sheet is not configured. Open js/script.js and set GOOGLE_SHEET_URL to your Apps Script Web App URL.");
       }
-      await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        from_name: data.fullName,
-        name: data.fullName,
-        from_email: data.email,
-        email: data.email,
-        reply_to: data.email,
-        designation: data.designation,
-        organization: data.organization,
-        company: data.organization,
-        contact_number: data.contactNumber,
-        phone: data.contactNumber,
-        country: data.country,
-        selected_pass: data.pass,
-        message: data.message || "—",
+      const payload = {
         timestamp: new Date().toLocaleString("en-GB", { timeZone: "Asia/Kolkata", hour12: false }) + " IST",
-        to_email: "contact@walk2talkmedia.com",
-        subject: "New Summit Registration | Walk2Talk Global Healthcare Summit 2026",
+        fullName: data.fullName.trim(),
+        designation: data.designation.trim(),
+        organization: data.organization.trim(),
+        email: data.email.trim(),
+        contactNumber: data.contactNumber.trim(),
+        country: data.country,
+        pass: data.pass,
+        message: (data.message || "").trim() || "—",
+      };
+      // text/plain keeps the request "simple" so the browser skips the CORS preflight
+      // that Apps Script cannot answer; no-cors makes the opaque response acceptable.
+      await fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
       });
+
       form.reset();
       $("#country-value").textContent = "Select country";
       $("#reg-country").value = "";
